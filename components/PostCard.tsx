@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-const index = () => {
+const PostCard = () => {
   return (
     <View>
-      <Text>index</Text>
+      <Text>PostCard</Text>
     </View>
   );
 };
 
-export default index;
+export default PostCard;
