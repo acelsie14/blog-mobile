@@ -228,7 +228,7 @@ export interface AuthContextType {
 
 export interface PostContextType {
   getPosts: (
-    status?: string,
+    status?: PostStatus,
     page?: number,
     limit?: number,
   ) => Promise<PaginatedApiResult<Post[]>>;
