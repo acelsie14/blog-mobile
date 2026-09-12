@@ -76,6 +76,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } catch (error: any) {
       // if storage is corrupted, clear it
+      console.log(error);
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('user');
     } finally {
