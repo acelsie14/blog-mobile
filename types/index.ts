@@ -210,7 +210,7 @@ export interface PaginationMeta {
 }
 
 export interface PaginatedApiResult<T = unknown> extends ApiResult<T> {
-  pagination: PaginationMeta;
+  pagination?: PaginationMeta;
 }
 export interface AuthContextType {
   user: User | null;
@@ -227,11 +227,7 @@ export interface AuthContextType {
 }
 
 export interface PostContextType {
-  getPosts: (
-    status?: PostStatus,
-    page?: number,
-    limit?: number,
-  ) => Promise<PaginatedApiResult<Post[]>>;
+  getPosts: (params?: GetPostsParams) => Promise<PaginatedApiResult<Post[]>>;
   getPost: (id: string) => Promise<ApiResult<Post>>;
   createPost: (payload: CreatePostPayload) => Promise<ApiResult<Post>>;
   updatePost: (
@@ -246,8 +242,7 @@ export interface PostContextType {
   bookmarkPost: (postId: string) => Promise<ApiResult<void>>;
   unbookmarkPost: (postId: string) => Promise<ApiResult<void>>;
   getBookmarks: (
-    page?: number,
-    limit?: number,
+    params?: GetBookmarkParams,
   ) => Promise<PaginatedApiResult<Bookmark[]>>;
 }
 
@@ -311,4 +306,18 @@ export interface UploadResult {
 
 export interface UploadContextType {
   uploadFile: (uri: string) => Promise<UploadResult>;
+}
+export interface GetPostsParams {
+  status?: PostStatus;
+  page?: number;
+  limit?: number;
+  author?: string;
+  category?: string;
+  tag?: string;
+  search?: string;
+}
+
+export interface GetBookmarkParams {
+  page?: number;
+  limit?: number;
 }

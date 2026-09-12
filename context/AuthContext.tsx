@@ -8,7 +8,7 @@ import {
   UpdateProfilePayload,
   User,
 } from '@/types';
-import * as api from '@/services/api';
+import * as api from '@/services/authApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
