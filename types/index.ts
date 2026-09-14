@@ -301,7 +301,11 @@ export interface UploadResult {
 }
 
 export interface UploadContextType {
-  uploadFile: (uri: string) => Promise<UploadResult>;
+  uploadImage: (
+    uri: string,
+    type: string,
+    name: string,
+  ) => Promise<ApiResult<string>>;
 }
 export interface GetPostsParams {
   status?: PostStatus;
