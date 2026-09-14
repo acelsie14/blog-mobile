@@ -266,11 +266,7 @@ export interface AdminContextType {
   approveUser: (userId: string) => Promise<ApiResult<User>>;
   rejectUser: (userId: string) => Promise<ApiResult<void>>;
   createEditor: (payload: CreateEditorPayload) => Promise<ApiResult<User>>;
-  getAllUsers: (filter?: {
-    role?: UserRole;
-    isActive?: boolean;
-    isVerified?: boolean;
-  }) => Promise<ApiResult<User[]>>;
+  getAllUsers: (params?: GetAllUsersParams) => Promise<ApiResult<User[]>>;
   getUser: (userId: string) => Promise<ApiResult<User>>;
   updateUser: (
     userId: string,
@@ -320,4 +316,10 @@ export interface GetPostsParams {
 export interface GetBookmarkParams {
   page?: number;
   limit?: number;
+}
+
+export interface GetAllUsersParams {
+  role?: UserRole;
+  isActive?: boolean;
+  isVerified?: boolean;
 }
