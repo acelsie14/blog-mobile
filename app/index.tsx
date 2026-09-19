@@ -14,10 +14,14 @@ export default function Index() {
   }
 
   // If user is logged in → go to tabs
-  if (user) {
-    return <Redirect href="/(tabs)" />;
+  if (!user) {
+    return <Redirect href="/auth/login" />;
+  }
+
+  if (user.role === 'admin') {
+    return <Redirect href="/(admin)" />;
   }
 
   // If no user → go to login
-  return <Redirect href="/auth/login" />;
+  return <Redirect href="/(tabs)" />;
 }

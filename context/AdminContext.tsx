@@ -52,7 +52,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
         message:
           error?.response?.data?.message ||
           error?.message ||
-          'Failed to reject post',
+          'Failed to reject user',
       };
     }
   };
@@ -134,7 +134,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
         message:
           error?.response?.data?.message ||
           error?.message ||
-          'Failed to delete post',
+          'Failed to delete usert',
       };
     }
   };

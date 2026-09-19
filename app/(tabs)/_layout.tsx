@@ -13,6 +13,9 @@ const TabLayout = () => {
   if (!user) {
     return <Redirect href="/auth/login" />;
   }
+  if (user.role === 'admin') return <Redirect href="/(admin)" />;
+
+  if (user.role === 'pending') return <Redirect href="/auth/login" />;
   return (
     <Tabs
       screenOptions={{
@@ -36,6 +39,15 @@ const TabLayout = () => {
           title: 'Create',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="bookmarks"
+        options={{
+          title: 'Saved',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bookmark-outline" size={size} color={color} />
           ),
         }}
       />

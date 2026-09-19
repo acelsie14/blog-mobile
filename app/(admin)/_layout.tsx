@@ -9,7 +9,10 @@ const AdminLayout = () => {
     return null;
   }
 
-  if (!user || user?.role !== 'admin') {
+  if (!user) {
+    return <Redirect href="/auth/login" />;
+  }
+  if (user.role !== 'admin') {
     return <Redirect href="/(tabs)" />;
   }
   return (
@@ -19,7 +22,7 @@ const AdminLayout = () => {
         options={{ title: 'Admin Dashboard', headerShown: false }}
       />
       <Stack.Screen
-        name="register"
+        name="pending"
         options={{ title: 'Pending Applications', headerShown: false }}
       />
     </Stack>
