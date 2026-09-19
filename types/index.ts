@@ -263,9 +263,9 @@ export interface CommentContextType {
 
 export interface AdminContextType {
   getPendingUsers: () => Promise<ApiResult<User[]>>;
-  approveUser: (userId: string) => Promise<ApiResult<User>>;
+  approveUser: (userId: string) => Promise<ApiResult<void>>;
   rejectUser: (userId: string) => Promise<ApiResult<void>>;
-  createEditor: (payload: CreateEditorPayload) => Promise<ApiResult<User>>;
+  createEditor: (payload: CreateEditorPayload) => Promise<ApiResult<void>>;
   getAllUsers: (params?: GetAllUsersParams) => Promise<ApiResult<User[]>>;
   getUser: (userId: string) => Promise<ApiResult<User>>;
   updateUser: (

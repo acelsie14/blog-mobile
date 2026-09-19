@@ -27,7 +27,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const approveUser = async (userId: string): Promise<ApiResult<User>> => {
+  const approveUser = async (userId: string): Promise<ApiResult<void>> => {
     try {
       const data = await adminApi.approveUserRequest(userId);
       return data;
@@ -59,7 +59,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
 
   const createEditor = async (
     payload: CreateEditorPayload,
-  ): Promise<ApiResult<User>> => {
+  ): Promise<ApiResult<void>> => {
     try {
       const data = await adminApi.createEditorRequest(payload);
       return data;

@@ -25,6 +25,22 @@ const AdminLayout = () => {
         name="pending"
         options={{ title: 'Pending Applications', headerShown: false }}
       />
+      <Stack.Screen
+        name="users"
+        options={{ title: 'Users', headerShown: false }}
+      />
+      <Stack.Screen
+        name="create-editor"
+        options={{ title: 'Create Editors', headerShown: false }}
+      />
+      <Stack.Screen
+        name="categories"
+        options={{ title: 'Categories', headerShown: false }}
+      />
+      <Stack.Screen
+        name="tags"
+        options={{ title: 'Tags', headerShown: false }}
+      />
     </Stack>
   );
 };
