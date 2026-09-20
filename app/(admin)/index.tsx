@@ -1,6 +1,3 @@
-// ─────────────────────────────────────────────────────────────
-// STEP 1: IMPORTS
-// ─────────────────────────────────────────────────────────────
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
@@ -16,6 +13,7 @@ import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import { useAdmin } from '@/context/AdminContext';
 import { useCategoryTag } from '@/context/CategoryTagContext';
+import { Colors } from '@/utils/colors';
 
 const StatCard = ({
   label,
@@ -184,10 +182,10 @@ export default function AdminDashboard() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#f5f5f5' },
+  safe: { flex: 1, backgroundColor: Colors.background },
   container: { padding: 20, paddingBottom: 40 },
-  greeting: { fontSize: 24, fontWeight: '700', color: '#333' },
-  subtitle: { fontSize: 14, color: '#666', marginBottom: 20 },
+  greeting: { fontSize: 24, fontWeight: '700', color: Colors.textPrimary },
+  subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 20 },
   statsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -197,15 +195,15 @@ const styles = StyleSheet.create({
   statCard: {
     flex: 1,
     minWidth: '45%',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.surface,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
   },
-  statValue: { fontSize: 28, fontWeight: '700', color: '#6C63FF' },
-  statLabel: { fontSize: 13, color: '#666', marginTop: 4 },
+  statValue: { fontSize: 28, fontWeight: '700', color: Colors.primary },
+  statLabel: { fontSize: 13, color: Colors.textSecondary, marginTop: 4 },
   navButton: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.surface,
     padding: 18,
     borderRadius: 12,
     marginBottom: 12,
@@ -215,17 +213,17 @@ const styles = StyleSheet.create({
   },
   navButtonText: { fontSize: 16, fontWeight: '600', color: '#333' },
   badge: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: Colors.primary,
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 3,
   },
-  badgeText: { color: '#fff', fontWeight: '700', fontSize: 12 },
-  logoutButton: { backgroundColor: '#ffefef', marginTop: 12 },
+  badgeText: { color: Colors.textOnPrimary, fontWeight: '700', fontSize: 12 },
+  logoutButton: { backgroundColor: Colors.textOnDanger, marginTop: 12 },
   logoutButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#d32f2f',
+    color: Colors.danger,
     textAlign: 'center',
     flex: 1,
   },
