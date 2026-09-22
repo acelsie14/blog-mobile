@@ -15,17 +15,26 @@ import { useAdmin } from '@/context/AdminContext';
 import { useCategoryTag } from '@/context/CategoryTagContext';
 import { Colors } from '@/utils/colors';
 
+// Stat card is now pressable and routes via the onPress handler
 const StatCard = ({
   label,
   value,
+  onPress,
 }: {
   label: string;
   value: number | string;
+  onPress: () => void;
 }) => (
-  <View style={styles.statCard}>
+  <TouchableOpacity
+    style={styles.statCard}
+    onPress={onPress}
+    activeOpacity={0.7}
+    accessibilityRole="button"
+    accessibilityLabel={`${label}: ${value}. Tap to view.`}
+  >
     <Text style={styles.statValue}>{value}</Text>
     <Text style={styles.statLabel}>{label}</Text>
-  </View>
+  </TouchableOpacity>
 );
 
 export default function AdminDashboard() {
@@ -89,7 +98,7 @@ export default function AdminDashboard() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* STEP 6: ScrollView + RefreshControl = pull-to-refresh */}
+      {/* ScrollView + RefreshControl = pull-to-refresh */}
       <ScrollView
         contentContainerStyle={styles.container}
         refreshControl={
@@ -100,54 +109,43 @@ export default function AdminDashboard() {
           />
         }
       >
-        {/* STEP 5.1: Header */}
+        {/* Header */}
         <Text style={styles.greeting}>Welcome, {user?.username}</Text>
         <Text style={styles.subtitle}>Admin Dashboard</Text>
 
-        {/* STEP 5.2: Stats grid (2×2) */}
+        {/* Stats grid (2×2) — each card routes to its screen */}
         {loading ? (
-          // First load → big centered spinner
           <ActivityIndicator
             size="large"
             color="#6C63FF"
-            style={{ marginTop: 40 }}
+            style={{ marginTop: 60 }}
           />
         ) : (
           <View style={styles.statsGrid}>
-            {/* Show '—' if the stat failed, otherwise show the number */}
             <StatCard
               label="Pending"
               value={failed.pending ? '—' : counts.pending}
+              onPress={() => router.push('/(admin)/pending')}
             />
-            <StatCard label="Users" value={failed.users ? '—' : counts.users} />
+            <StatCard
+              label="Users"
+              value={failed.users ? '—' : counts.users}
+              onPress={() => router.push('/(admin)/users')}
+            />
             <StatCard
               label="Categories"
               value={failed.categories ? '—' : counts.categories}
+              onPress={() => router.push('/(admin)/categories')}
             />
-            <StatCard label="Tags" value={failed.tags ? '—' : counts.tags} />
+            <StatCard
+              label="Tags"
+              value={failed.tags ? '—' : counts.tags}
+              onPress={() => router.push('/(admin)/tags')}
+            />
           </View>
         )}
 
-        {/* STEP 5.3: Navigation buttons */}
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => router.push('/(admin)/pending')}
-        >
-          <Text style={styles.navButtonText}>Pending Applications</Text>
-          {counts.pending > 0 && !failed.pending && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{counts.pending}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => router.push('/(admin)/users')}
-        >
-          <Text style={styles.navButtonText}>All Users</Text>
-        </TouchableOpacity>
-
+        {/* Create Editor */}
         <TouchableOpacity
           style={styles.navButton}
           onPress={() => router.push('/(admin)/create-editor')}
@@ -155,21 +153,7 @@ export default function AdminDashboard() {
           <Text style={styles.navButtonText}>Create Editor</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => router.push('/(admin)/categories')}
-        >
-          <Text style={styles.navButtonText}>Categories</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => router.push('/(admin)/tags')}
-        >
-          <Text style={styles.navButtonText}>Tags</Text>
-        </TouchableOpacity>
-
-        {/* STEP 5.4: Logout */}
+        {/* Logout */}
         <TouchableOpacity
           style={[styles.navButton, styles.logoutButton]}
           onPress={logout}
@@ -183,45 +167,52 @@ export default function AdminDashboard() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.background },
-  container: { padding: 20, paddingBottom: 40 },
-  greeting: { fontSize: 24, fontWeight: '700', color: Colors.textPrimary },
-  subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 20 },
+  container: { padding: 24, paddingBottom: 48 },
+  greeting: { fontSize: 30, fontWeight: '700', color: Colors.textPrimary },
+  subtitle: {
+    fontSize: 17,
+    color: Colors.textSecondary,
+    marginTop: 4,
+    marginBottom: 28,
+  },
   statsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
-    marginBottom: 24,
+    gap: 16,
+    marginBottom: 32,
   },
   statCard: {
     flex: 1,
     minWidth: '45%',
+    minHeight: 150,
     backgroundColor: Colors.surface,
-    padding: 16,
-    borderRadius: 12,
+    paddingVertical: 28,
+    paddingHorizontal: 20,
+    borderRadius: 16,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  statValue: { fontSize: 28, fontWeight: '700', color: Colors.primary },
-  statLabel: { fontSize: 13, color: Colors.textSecondary, marginTop: 4 },
+  statValue: { fontSize: 44, fontWeight: '700', color: Colors.primary },
+  statLabel: {
+    fontSize: 17,
+    fontWeight: '500',
+    color: Colors.textSecondary,
+    marginTop: 8,
+  },
   navButton: {
     backgroundColor: Colors.surface,
-    padding: 18,
-    borderRadius: 12,
-    marginBottom: 12,
+    paddingVertical: 22,
+    paddingHorizontal: 24,
+    borderRadius: 16,
+    marginBottom: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  navButtonText: { fontSize: 16, fontWeight: '600', color: '#333' },
-  badge: {
-    backgroundColor: Colors.primary,
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-  },
-  badgeText: { color: Colors.textOnPrimary, fontWeight: '700', fontSize: 12 },
-  logoutButton: { backgroundColor: Colors.textOnDanger, marginTop: 12 },
+  navButtonText: { fontSize: 18, fontWeight: '600', color: '#333' },
+  logoutButton: { backgroundColor: Colors.textOnDanger, marginTop: 8 },
   logoutButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: Colors.danger,
     textAlign: 'center',

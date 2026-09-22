@@ -147,6 +147,7 @@ const Pending = () => {
   };
 
   const renderItem = ({ item }: { item: User }) => {
+    //for rendering each users infromation
     const isBusy = busy[item._id] === true;
     const action = acted[item._id];
 
@@ -215,9 +216,10 @@ const Pending = () => {
     );
   }
 
-  const current = modalQueue[0];
+  const current = modalQueue[0]; // current modale is the first modal in the modale queue
 
   return (
+    // flatlist renders each user based on the style given by render item
     <SafeAreaView style={styles.safe}>
       <FlatList
         data={users}
@@ -244,6 +246,7 @@ const Pending = () => {
   );
 };
 const FeedbackModal = ({
+  // customized modal for message in pmace of alter
   visible,
   title,
   message,
