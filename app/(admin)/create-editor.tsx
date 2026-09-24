@@ -304,7 +304,6 @@ const CreateEditor = () => {
               returnKeyType="next"
               onSubmitEditing={() => emailRef.current?.focus()}
               blurOnSubmit={false}
-              submitBehavior="blurAndSubmit"
               error={errors.username}
             />
             <Field
